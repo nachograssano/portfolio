@@ -1,0 +1,9 @@
+# Archivos del sistema / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+
+# Carpetas de herramientas locales
+.vscode/
+.idea/

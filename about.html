@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Juan I. Grassano</title>
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+    <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+        <a href="index.html">Work</a>
+        <a href="about.html" class="active">About</a>
+    </div>
+</nav>
+
+<main class="about">
+
+    <!-- Título + subtítulo (arriba a la derecha) -->
+    <section class="about-intro">
+        <h1 class="about-title">Diseñador creativo con más de cinco <br> años de experiencia en la creación de <br> experiencias digitales y contenidos <br> visuales para marcas, agencias y entornos corporativos.</h1>
+        <p class="about-sub">Mi trayectoria profesional abarca el diseño para redes sociales,<br> UI/UX, motion graphics, diseño 3D y narración visual.</p>
+    </section>
+
+    <!-- Contacto (izquierda) + Experiencia (derecha) -->
+    <section class="about-details">
+        <div class="about-contact">
+            <div class="about-links">
+                <a href="mailto:nachograssano10@gmail.com">nachograssano10@gmail.com</a>
+                <a href="https://behance.net/nachograssano" target="_blank" rel="noopener">behance.net/nachograssano</a>
+            </div>
+            <p class="about-personal">
+                21 años<br>
+                Buenos Aires, Argentina<br>
+                Diseñador Gráfico Multidisciplinario
+            </p>
+        </div>
+
+        <div class="about-experience">
+            <div class="exp-item">
+                <span class="exp-company">Bárcilo</span>
+                <div class="exp-row"><span>Diseñador Gráfico</span><span class="exp-date">(2025-Presente)</span></div>
+            </div>
+            <div class="exp-item">
+                <span class="exp-company">Agencia Camaleón</span>
+                <div class="exp-row"><span>Diseñador Gráfico</span><span class="exp-date">(2024-Presente)</span></div>
+            </div>
+            <div class="exp-item">
+                <span class="exp-company">Oxen Latam</span>
+                <div class="exp-row"><span>Diseñador Gráfico</span><span class="exp-date">(2023-2024)</span></div>
+            </div>
+            <div class="exp-item">
+                <span class="exp-company">Reign Of Titans <span class="exp-light">by Pepsi</span></span>
+                <div class="exp-row"><span>Diseñador Gráfico</span><span class="exp-date">(2023-2024)</span></div>
+            </div>
+            <div class="exp-item">
+                <span class="exp-company">Ultimate Cup <span class="exp-light">by BurgerKing</span></span>
+                <div class="exp-row"><span>Diseñador Gráfico</span><span class="exp-date">(2023-2024)</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="about-footer">
+        <span>Juan Ignacio Grassano</span>
+        <span>Portfolio</span>
+        <span>2026</span>
+    </footer>
+
+</main>
+
+<script>
+    // Menú hamburguesa (mobile)
+    const navToggle = document.querySelector('.nav-toggle');
+    const navbar = document.querySelector('.navbar');
+    if (navToggle && navbar) {
+        navToggle.addEventListener('click', () => {
+            const open = navbar.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', open);
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,367 @@
+body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #f4f4f4;
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .scene {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Solo el cilindro de imágenes escala; el texto central queda estático. */
+        .carousel-zoom {
+            transform-style: preserve-3d;
+            transform-origin: center center;
+            /* Entrada: el cilindro llega grande y se asienta suavemente (reverso de la salida) */
+            animation: carouselZoomIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        /* Salida: el cilindro crece hacia la pantalla mientras carga el proyecto */
+        body.page-leaving .carousel-zoom {
+            animation: carouselZoomOut 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes carouselZoomIn {
+            from { transform: scale(2.6); }
+            to   { transform: scale(1); }
+        }
+
+        @keyframes carouselZoomOut {
+            from { transform: scale(1); }
+            to   { transform: scale(2.6); }
+        }
+
+        .center-text {
+            position: absolute;
+            text-align: left;
+            pointer-events: none;
+            transform: translateZ(0) translateX(-50%) translateY(-50%) rotateZ(-15deg);
+            filter: blur(0.76px);
+            animation: textCounterWobble 60s linear infinite;
+        }
+
+        @keyframes textCounterWobble {
+            0%   { transform: translateX(-50%) translateY(-50%) rotateZ(-14deg); }
+            50%  { transform: translateX(-50%) translateY(-50%) rotateZ(14deg); }
+            100% { transform: translateX(-50%) translateY(-50%) rotateZ(-14deg); }
+        }
+
+        .carousel-tilt {
+            position: absolute;
+            width: 0;
+            height: 0;
+            perspective: 1200px;
+            transform-style: preserve-3d;
+            animation: tiltWobble 60s linear infinite;
+        }
+
+        .center-text h1 {
+            font-size: 6rem;
+            font-weight: 900;
+            letter-spacing: -3px;
+            margin: 0;
+            color: #111;
+            text-transform: uppercase;
+            line-height: 1;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .center-text p {
+            margin: 0.5rem 0 0;
+            font-size: 1rem;
+            letter-spacing: 4px;
+            color: #555;
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+        }
+
+        .carousel {
+            position: absolute;
+            transform-style: preserve-3d;
+            animation: rotateCarousel 35s infinite linear;
+        }
+
+        .card {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            transition: transform 0.35s ease, filter 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            backface-visibility: visible;
+        }
+
+        .card:hover {
+            filter: brightness(1.08) contrast(1.05);
+            box-shadow: 0 25px 55px rgba(0,0,0,0.28);
+        }
+
+        .card a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-tall  { width: 170px; height: 256px; }
+        .card-wide  { width: 238px; height: 154px; }
+        .card-square{ width: 188px; height: 188px; }
+
+        @keyframes rotateCarousel {
+            0%   { transform: rotateX(-4deg) rotateY(0deg); }
+            100% { transform: rotateX(-4deg) rotateY(360deg); }
+        }
+
+        @keyframes tiltWobble {
+            0%   { transform: rotateZ(14deg) rotateX(3deg); }
+            50%  { transform: rotateZ(-14deg) rotateX(-3deg); }
+            100% { transform: rotateZ(14deg) rotateX(3deg); }
+        }
+
+
+        .logo-strip {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            width: 45%;
+            max-width: 560px;
+            pointer-events: none;
+        }
+
+        .logo-strip img {
+            width: 100%;
+            height: auto;
+            display: block;
+            opacity: 0.55;
+        }
+        /* === NAVBAR === */
+        .navbar {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9000;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #111;
+            position: relative;
+            transition: opacity 0.25s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: #111;
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover { opacity: 0.5; }
+        .navbar a:hover::after { width: 100%; }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        /* Botón hamburguesa (oculto en desktop, visible en mobile) */
+        .nav-toggle {
+            display: none;
+            box-sizing: border-box;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 32px;
+            height: 26px;
+            padding: 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #111;
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* === TRANSICIÓN DE SALIDA (home -> proyecto) === */
+        .page-leave-overlay {
+            position: fixed;
+            inset: 0;
+            background: #0d0d0d;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transition: opacity 0.6s ease;
+        }
+
+        body.page-leaving .page-leave-overlay {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* === TRANSICIÓN DE ENTRADA (al volver al home) === */
+        .page-enter-overlay {
+            position: fixed;
+            inset: 0;
+            background: #0d0d0d;
+            z-index: 9999;
+            pointer-events: none;
+            animation: enterFade 0.6s ease forwards;
+        }
+
+        @keyframes enterFade {
+            from { opacity: 1; }
+            to   { opacity: 0; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .page-enter-overlay { animation: none; opacity: 0; }
+            .carousel-zoom { animation: none; transform: none; }
+            body.page-leaving .carousel-zoom { animation: none; }
+        }
+
+        /* === TRANSICIÓN AL ABOUT (cuadrado rojo que crece desde el centro) === */
+        .about-transition {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 100vmax;
+            height: 100vmax;
+            background: #f23a20;       /* mismo rojo que la página About */
+            transform: translate(-50%, -50%) scale(0);
+            transform-origin: center center;
+            z-index: 9998;
+            pointer-events: none;
+        }
+
+        body.to-about .about-transition {
+            animation: aboutSquareGrow 0.7s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+        }
+
+        @keyframes aboutSquareGrow {
+            0%   { transform: translate(-50%, -50%) scale(0);    filter: blur(4px); }
+            55%  { filter: blur(22px); }
+            100% { transform: translate(-50%, -50%) scale(1.05); filter: blur(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            body.to-about .about-transition { animation: none; }
+        }
+
+        /* === MOBILE: el cilindro gira vertical (lo arma el JS); acá adaptamos el resto === */
+        @media (max-width: 820px) {
+            /* Alto real del celular (descuenta la barra del navegador): nada de scroll */
+            body,
+            .scene {
+                height: 100dvh;
+            }
+
+            /* Texto central estático (sin wobble ni giro) */
+            .center-text {
+                animation: none;
+                transform: translateX(-50%) translateY(-50%);
+            }
+
+            .center-text h1 {
+                font-size: 2.6rem;
+                letter-spacing: -1px;
+            }
+
+            .center-text p {
+                font-size: 0.75rem;
+                letter-spacing: 3px;
+            }
+
+            /* Sin wobble lateral: en vertical quedaba raro junto al giro del cilindro */
+            .carousel-tilt {
+                animation: none;
+            }
+
+            .navbar {
+                top: 1.4rem;
+                left: auto;
+                right: 1.4rem;
+                transform: none;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 1rem;
+            }
+
+            .nav-toggle {
+                display: flex;
+                width: 46px;
+                height: 40px;
+                padding: 11px 10px;
+                background: rgba(255, 255, 255, 0.92);
+                border-radius: 10px;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 1.1rem;
+            }
+
+            .navbar.open .nav-links {
+                display: flex;
+                background: rgba(255, 255, 255, 0.95);
+                padding: 1rem 1.2rem;
+                border-radius: 10px;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+            }
+
+            .navbar a {
+                font-size: 0.85rem;
+                letter-spacing: 2px;
+            }
+
+            /* Hamburguesa -> X al abrir */
+            .navbar.open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .navbar.open .nav-toggle span:nth-child(2) { opacity: 0; }
+            .navbar.open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+            .logo-strip {
+                width: 72%;
+                bottom: 1.2rem;
+            }
+        }

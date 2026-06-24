@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efecto PortalTo 3D - Pulido</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="about-transition"></div>
+
+<nav class="navbar">
+    <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+        <a href="index.html">Work</a>
+        <a href="about.html">About</a>
+    </div>
+</nav>
+
+<div class="scene">
+    <div class="carousel-tilt">
+        <div class="center-text">
+            <h1>Juan I. <br> Grassano</h1>
+            <p>Graphic Designer</p>
+        </div>
+        <div class="carousel-zoom">
+        <div class="carousel">
+        <div class="card card-tall">  <a href="project-1.html"><img src="images/proyecto1/proyecto1-miniatura.png" alt="Img 1"></a></div>
+        <div class="card card-wide">  <a href="project-2.html"><img src="images/proyecto2/proyecto2-miniatura.png" alt="Img 2"></a></div>
+        <div class="card card-square"><a href="project-3.html"><img src="images/proyecto3/proyecto3-miniatura.png" alt="Img 3"></a></div>
+        <div class="card card-tall">  <a href="project-4.html"><img src="images/proyecto4/proyecto4-miniatura.png" alt="Img 4"></a></div>
+        <div class="card card-wide">  <a href="project-5.html"><img src="images/proyecto5/proyecto5-miniatura.png" alt="Img 5"></a></div>
+        <div class="card card-square"><a href="project-6.html"><img src="images/proyecto6/proyecto6-miniatura.png" alt="Img 6"></a></div>
+        <div class="card card-tall">  <a href="project-7.html"><img src="images/proyecto7/proyecto7-miniatura.png" alt="Img 7"></a></div>
+        <div class="card card-wide">  <a href="project-8.html"><img src="images/proyecto8/proyecto8-miniatura.png" alt="Img 8"></a></div>
+        <div class="card card-square"><a href="project-9.html"><img src="images/proyecto9/proyecto9-miniatura.png" alt="Img 9"></a></div>
+        <div class="card card-tall">  <a href="project-10.html"><img src="images/proyecto10/proyecto10-miniatura.png" alt="Img 10"></a></div>
+        <div class="card card-wide">  <a href="project-11.html"><img src="images/proyecto11/proyecto11-miniatura.png" alt="Img 11"></a></div>
+        <div class="card card-square"><a href="project-12.html"><img src="images/proyecto12/proyecto12-miniatura.png" alt="Img 12"></a></div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const MARGIN = 10;
+    const MAX_CARD_W = 238;
+    const MAX_SCALE = 1;
+    const MIN_SCALE = 0.45;
+
+    const cards = document.querySelectorAll('.card');
+    const numCards = cards.length;
+
+    // En mobile el cilindro gira en torno al eje X (vertical): las cards suben/bajan.
+    // Desktop gira en torno al eje Y (horizontal). Se actualiza en vivo al redimensionar.
+    const mqVertical = window.matchMedia('(max-width: 820px)');
+    let VERTICAL = mqVertical.matches;
+    mqVertical.addEventListener('change', (e) => { VERTICAL = e.matches; });
+
+    const refWidth = MAX_CARD_W;
+    const arcBetween = refWidth + MARGIN;
+    const radius = arcBetween / (2 * Math.sin(Math.PI / numCards));
+
+    // En mobile (cilindro vertical) el tamaño/radio se basa en el ALTO del celular, para que
+    // el carrusel entre completo sin scrollear; en desktop, en la dimensión menor.
+    // El factor en mobile es más chico -> radio del cilindro más compacto.
+    const comfortableRadius = VERTICAL
+        ? window.innerHeight * 0.30
+        : Math.min(window.innerWidth, window.innerHeight) * 0.6;
+    const scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, comfortableRadius / radius));
+
+    const finalRadius = radius * scale;
+
+    // Supersampling: las cards se dibujan a SS× de resolución y se reescalan a 1/SS.
+    // El tamaño visual queda igual, pero el navegador tiene SS× más píxeles para la
+    // magnificación de la perspectiva 3D -> las imágenes dejan de verse pixeladas.
+    const SS = 2;
+    const renderScale = scale / SS;
+
+    // Arma el transform de una card según la orientación del cilindro.
+    function cardCSS(angle, jitter, sc, sq) {
+        if (VERTICAL) {
+            const sqPart = sq != null ? ` scaleY(${sq})` : '';
+            return `rotateX(${angle}deg) translateZ(${finalRadius}px) translateX(${jitter}px) scale(${sc})${sqPart}`;
+        }
+        const sqPart = sq != null ? ` scaleX(${sq})` : '';
+        return `rotateY(${angle}deg) translateZ(${finalRadius}px) translateY(${jitter}px) scale(${sc})${sqPart}`;
+    }
+
+    // Rotación del cilindro completo (horizontal vs vertical).
+    function carouselCSS(a) {
+        return VERTICAL ? `rotateY(6deg) rotateX(${a}deg)` : `rotateX(-4deg) rotateY(${a}deg)`;
+    }
+
+    const baseTransforms = [];
+
+    cards.forEach((card, index) => {
+        const angle = (360 / numCards) * index;
+        const randomY = Math.floor(Math.random() * 140) - 70;
+        const base = cardCSS(angle, randomY, renderScale);
+        baseTransforms.push({ card, base, angle, randomY });
+        card.style.transform = base;
+    });
+
+    const cardTalls   = document.querySelectorAll('.card-tall');
+    const cardWides   = document.querySelectorAll('.card-wide');
+    const cardSquares = document.querySelectorAll('.card-square');
+
+    cardTalls.forEach(c => {
+        c.style.width  = (170 * SS) + 'px';
+        c.style.height = (256 * SS) + 'px';
+        c.style.left   = (-85 * SS) + 'px';
+        c.style.top    = (-128 * SS) + 'px';
+    });
+    cardWides.forEach(c => {
+        c.style.width  = (238 * SS) + 'px';
+        c.style.height = (154 * SS) + 'px';
+        c.style.left   = (-119 * SS) + 'px';
+        c.style.top    = (-77 * SS) + 'px';
+    });
+    cardSquares.forEach(c => {
+        c.style.width  = (188 * SS) + 'px';
+        c.style.height = (188 * SS) + 'px';
+        c.style.left   = (-94 * SS) + 'px';
+        c.style.top    = (-94 * SS) + 'px';
+    });
+    // El radio de borde también se dibuja a SS×, para que el redondeo visual no cambie.
+    cards.forEach(c => { c.style.borderRadius = (12 * SS) + 'px'; });
+
+    const carousel = document.querySelector('.carousel');
+    const HOVER_SCALE = 1.18;
+    const ROTATION_SPEED = 360 / 35000; // grados por ms
+    const MAX_BLUR = 0;   // blur de profundidad del carrusel desactivado
+    const MAX_LENS_SQUEEZE = 0.60;
+
+    let carouselAngle = 0;
+    let lastTime = null;
+    let speedMultiplier = 1;      // 1 = normal, 0 = parado
+    let targetMultiplier = 1;     // hacia dónde interpola
+    const EASE_SPEED = 0.04;      // qué tan rápido suaviza (0–1 por frame)
+
+    // === Blur de transición (se suma al blur de profundidad de cada card) ===
+    const TRANSITION_BLUR_MAX = 20;
+    let extraBlur = TRANSITION_BLUR_MAX;  // entrada: arranca desenfocado y baja a 0
+    let blurFrom = TRANSITION_BLUR_MAX;
+    let blurTo = 0;
+    let blurDur = 100;                    // entrada en 0.9s (igual que el zoom-in)
+    let blurStartTime = null;
+
+    function triggerBlur(from, to, dur) {
+        blurFrom = from;
+        blurTo = to;
+        blurDur = dur;
+        blurStartTime = null;             // se fija en el próximo frame del loop
+    }
+
+    carousel.style.animation = 'none';
+
+    cards.forEach((card, index) => {
+        const { angle, randomY } = baseTransforms[index];
+
+        card.addEventListener('mouseenter', () => {
+            targetMultiplier = 0;
+            card.style.transform = cardCSS(angle, randomY, renderScale * HOVER_SCALE);
+        });
+
+        card.addEventListener('mouseleave', () => {
+            targetMultiplier = 1;
+        });
+    });
+
+    function loop(timestamp) {
+        if (lastTime !== null) {
+            const delta = timestamp - lastTime;
+
+            // Interpolar suavemente hacia el target
+            speedMultiplier += (targetMultiplier - speedMultiplier) * EASE_SPEED;
+
+            carouselAngle = (carouselAngle + ROTATION_SPEED * delta * speedMultiplier) % 360;
+        }
+        lastTime = timestamp;
+
+        // Tween por tiempo del blur de transición (easeInOut suave)
+        if (blurStartTime === null) blurStartTime = timestamp;
+        const bt = blurDur > 0 ? Math.min(1, (timestamp - blurStartTime) / blurDur) : 1;
+        const bEase = bt * bt * (3 - 2 * bt);
+        extraBlur = blurFrom + (blurTo - blurFrom) * bEase;
+
+        carousel.style.transform = carouselCSS(carouselAngle);
+
+        baseTransforms.forEach(({ card, angle: cardAngle, randomY }) => {
+            const worldAngle = ((cardAngle + carouselAngle) % 360 + 360) % 360;
+            const rad = worldAngle * Math.PI / 180;
+
+            const zNorm = Math.cos(rad);
+            const xNorm = Math.sin(rad);
+
+            if (!card.matches(':hover')) {
+                // Blur: mitad trasera + blur de transición
+                const depth = Math.pow(Math.max(0, -zNorm), 1.6);
+                const blurPx = depth * MAX_BLUR + extraBlur;
+                card.style.filter = blurPx > 0.1 ? `blur(${blurPx.toFixed(2)}px)` : '';
+
+                // Lens distortion: costados
+                const lateralFactor = Math.pow(Math.abs(xNorm), 2);
+                const frontness = Math.max(0, zNorm);
+                const lensStrength = lateralFactor * frontness;
+                const scaleX = 1 - (1 - MAX_LENS_SQUEEZE) * lensStrength;
+
+                card.style.transform = cardCSS(cardAngle, randomY, renderScale, scaleX.toFixed(4));
+            } else {
+                card.style.filter = extraBlur > 0.1 ? `blur(${extraBlur.toFixed(2)}px)` : '';
+            }
+        });
+
+        requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
+</script>
+
+
+<div class="logo-strip">
+<img src="images/logoss.png" alt="">
+</div>
+
+<script>
+    // Transición suave home -> proyecto: fundido a negro antes de navegar
+    const projectLinks = document.querySelectorAll('.carousel a[href^="project-"]');
+
+    projectLinks.forEach((link) => {
+        link.addEventListener('click', (e) => {
+            // Respetar abrir en pestaña nueva (ctrl/cmd/click central)
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduceMotion) return; // navegación normal
+
+            e.preventDefault();
+            document.body.classList.add('page-leaving');
+            triggerBlur(extraBlur, TRANSITION_BLUR_MAX, 200); // desenfoque de menor a mayor
+            setTimeout(() => {
+                window.location.href = link.getAttribute('href');
+            }, 200);
+        });
+    });
+
+    // Menú hamburguesa (mobile)
+    const navToggle = document.querySelector('.nav-toggle');
+    const navbar = document.querySelector('.navbar');
+    if (navToggle && navbar) {
+        navToggle.addEventListener('click', () => {
+            const open = navbar.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', open);
+        });
+    }
+
+    // Transición al About: cuadrado rojo que crece desde el centro y tapa todo
+    const aboutLink = document.querySelector('.navbar a[href="about.html"]');
+    if (aboutLink) {
+        aboutLink.addEventListener('click', (e) => {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduceMotion) return; // navegación normal
+
+            e.preventDefault();
+            document.body.classList.add('to-about');
+            setTimeout(() => {
+                window.location.href = aboutLink.getAttribute('href');
+            }, 700);
+        });
+    }
+</script>
+</body>
+</html>
