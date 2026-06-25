@@ -5,6 +5,12 @@
             "label": "Servir sitio",
             "type": "shell",
             "command": "npx --yes http-server \"${workspaceFolder}\" -p 5500 -c-1",
+            "options": {
+                "shell": {
+                    "executable": "cmd.exe",
+                    "args": ["/d", "/c"]
+                }
+            },
             "isBackground": true,
             "presentation": {
                 "reveal": "silent",
