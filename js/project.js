@@ -159,10 +159,7 @@
     // Rueda del mouse / trackpad
     window.addEventListener('wheel', function (e) {
         if (navigating) { e.preventDefault(); return; }
-        if (e.deltaY <= 0) {                 // hacia arriba: libre y se descarga
-            if (charge > 0) { charge = 0; updateHint(); }
-            return;
-        }
+        if (e.deltaY <= 0) return;           // hacia arriba: scroll libre (la carga NO se descarga)
         if (applyResistance(e.deltaY, 1)) e.preventDefault();
     }, { passive: false });
 
@@ -177,13 +174,8 @@
         const dy = touchY - y;               // positivo al deslizar hacia arriba (scroll down)
         touchY = y;
         if (navigating) { e.preventDefault(); return; }
-        if (dy <= 0) {
-            if (charge > 0) { charge = 0; updateHint(); }
-            return;
-        }
+        if (dy <= 0) return;                 // hacia arriba: scroll libre (la carga NO se descarga)
         if (applyResistance(dy, 1.3)) e.preventDefault();
     }, { passive: false });
     window.addEventListener('touchend', function () { touchY = null; }, { passive: true });
-
-    requestAnimationFrame(decayLoop);
 }());
