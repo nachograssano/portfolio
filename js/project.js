@@ -18,12 +18,18 @@
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // --- Proyecto actual / siguiente (a partir del nombre de archivo) ---
-    const match = location.pathname.match(/project-(\d+)/);
-    const current = match ? parseInt(match[1], 10) : 1;
-    const next = current >= TOTAL_PROYECTOS ? 1 : current + 1;
-    // URLs sin .html (cada proyecto es project-N/index.html). Desde /project-N/ el siguiente
-    // es ../project-(N+1)/.
-    const nextHref = '../project-' + next + '/';
+    // Orden de los proyectos (carpetas), igual que en el carrusel del home.
+    const ORDER = [
+        'Reign-of-Titans', 'Ultimate-Cup', 'Extra-Life', 'Trinity-College',
+        'Oxen-Jersey', 'UATRE', 'Camaleon', 'Oxen-Campus',
+        'Spreen-WORLD', 'Magic-by-ZeKo', 'Polkadot', 'VirtualClub'
+    ];
+    // Carpeta actual = último segmento del path; el siguiente es el próximo del array (loop).
+    const segs = location.pathname.split('/').filter(Boolean);
+    const currentSlug = decodeURIComponent(segs[segs.length - 1] || '');
+    let idx = ORDER.indexOf(currentSlug);
+    if (idx === -1) idx = 0;
+    const nextHref = '../' + ORDER[(idx + 1) % ORDER.length] + '/';
 
     // --- Navegación con fundido a negro (reutiliza .page-leave-overlay) ---
     let navigating = false;
