@@ -178,4 +178,14 @@
         if (applyResistance(dy, 1.3)) e.preventDefault();
     }, { passive: false });
     window.addEventListener('touchend', function () { touchY = null; }, { passive: true });
+
+    // Al volver por bfcache (botón atrás), la página se restaura congelada con el overlay negro
+    // puesto y navigating=true. Reseteamos para que vuelva a su estado normal y funcione.
+    window.addEventListener('pageshow', function (e) {
+        if (!e.persisted) return;
+        navigating = false;
+        charge = 0;
+        document.body.classList.remove('page-leaving');
+        updateHint();
+    });
 }());

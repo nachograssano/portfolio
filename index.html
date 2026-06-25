@@ -277,6 +277,15 @@
             }, 700);
         });
     }
+
+    // Al volver con el botón atrás (bfcache), la página se restaura congelada con el zoom-out
+    // y el blur al máximo. Reseteamos ese estado y reanimamos la entrada.
+    window.addEventListener('pageshow', (e) => {
+        if (!e.persisted) return; // solo en restauración desde bfcache
+        document.body.classList.remove('page-leaving');
+        document.body.classList.remove('to-about');
+        triggerBlur(TRANSITION_BLUR_MAX, 0, 900); // re-anima el desenfoque de entrada (mayor -> menor)
+    });
 </script>
 </body>
 </html>
