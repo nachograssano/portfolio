@@ -1,0 +1,28 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Servir sitio",
+            "type": "shell",
+            "command": "npx --yes http-server \"${workspaceFolder}\" -p 5500 -c-1",
+            "isBackground": true,
+            "presentation": {
+                "reveal": "silent",
+                "panel": "dedicated"
+            },
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "^.*$",
+                    "file": 1,
+                    "location": 2,
+                    "message": 3
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "Starting up http-server",
+                    "endsPattern": "Available on|127.0.0.1"
+                }
+            }
+        }
+    ]
+}

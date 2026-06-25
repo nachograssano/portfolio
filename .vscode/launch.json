@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Abrir sitio (Edge)",
+            "type": "msedge",
+            "request": "launch",
+            "url": "http://localhost:5500/",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "Servir sitio"
+        },
+        {
+            "name": "Abrir sitio (Chrome)",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:5500/",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "Servir sitio"
+        }
+    ]
+}

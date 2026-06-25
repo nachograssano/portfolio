@@ -5,6 +5,10 @@ desktop.ini
 *.log
 
 # Carpetas de herramientas locales
-.vscode/
 .idea/
 .claude/
+
+# VSCode: versionamos launch/tasks (F5), ignoramos settings personales
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
