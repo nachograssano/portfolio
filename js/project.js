@@ -18,10 +18,12 @@
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // --- Proyecto actual / siguiente (a partir del nombre de archivo) ---
-    const match = location.pathname.match(/project-(\d+)\.html/);
+    const match = location.pathname.match(/project-(\d+)/);
     const current = match ? parseInt(match[1], 10) : 1;
     const next = current >= TOTAL_PROYECTOS ? 1 : current + 1;
-    const nextHref = 'project-' + next + '.html';
+    // URLs sin .html (cada proyecto es project-N/index.html). Desde /project-N/ el siguiente
+    // es ../project-(N+1)/.
+    const nextHref = '../project-' + next + '/';
 
     // --- Navegación con fundido a negro (reutiliza .page-leave-overlay) ---
     let navigating = false;
