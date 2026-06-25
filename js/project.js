@@ -64,7 +64,7 @@
     zone.setAttribute('aria-hidden', 'true');
     zone.innerHTML =
         '<div class="next-project-inner">' +
-        '<span class="next-project-label">Scroll to next project</span>' +
+        '<span class="next-project-label" data-es="Scroll al siguiente proyecto" data-en="Scroll to next project">Scroll to next project</span>' +
         '<div class="next-project-ring">' +
         '<svg viewBox="0 0 48 48">' +
         '<circle class="ring-track" cx="24" cy="24" r="20"></circle>' +
@@ -86,6 +86,9 @@
     const RING_CIRC = 2 * Math.PI * RING_R;
     ring.style.strokeDasharray = RING_CIRC.toFixed(2);
     ring.style.strokeDashoffset = RING_CIRC.toFixed(2); // arranca vacío
+
+    // El mensaje se inyectó después de i18n: lo traducimos al idioma actual.
+    if (window.applyLang) window.applyLang();
 
     // El mensaje aparece cuando la zona entra en viewport
     function onScroll() {

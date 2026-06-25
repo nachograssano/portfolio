@@ -16,8 +16,8 @@
         <span></span><span></span><span></span>
     </button>
     <div class="nav-links">
-        <a href="../">Work</a>
-        <a href="../about/" class="active">About</a>
+        <a href="../" data-es="Proyectos" data-en="Work">Proyectos</a>
+        <a href="../about/" class="active" data-es="Sobre mí" data-en="About">Sobre mí</a>
     </div>
 </nav>
 
@@ -25,8 +25,12 @@
 
     <!-- Título + subtítulo (arriba a la derecha) -->
     <section class="about-intro">
-        <h1 class="about-title">Diseñador creativo con más de cinco <br> años de experiencia en la creación de <br> experiencias digitales y contenidos <br> visuales para marcas, agencias y entornos corporativos.</h1>
-        <p class="about-sub">Mi trayectoria profesional abarca el diseño para redes sociales,<br> UI/UX, motion graphics, diseño 3D y narración visual.</p>
+        <h1 class="about-title"
+            data-es="Diseñador creativo con más de cinco <br> años de experiencia en la creación de <br> experiencias digitales y contenidos <br> visuales para marcas, agencias y entornos corporativos."
+            data-en="Creative designer with more than five <br> years of experience creating digital <br> experiences and visual content <br> for brands, agencies and corporate environments.">Diseñador creativo con más de cinco <br> años de experiencia en la creación de <br> experiencias digitales y contenidos <br> visuales para marcas, agencias y entornos corporativos.</h1>
+        <p class="about-sub"
+            data-es="Mi trayectoria profesional abarca el diseño para redes sociales,<br> UI/UX, motion graphics, diseño 3D y narración visual."
+            data-en="My professional career spans design for social media,<br> UI/UX, motion graphics, 3D design and visual storytelling.">Mi trayectoria profesional abarca el diseño para redes sociales,<br> UI/UX, motion graphics, diseño 3D y narración visual.</p>
     </section>
 
     <!-- Contacto (izquierda) + Experiencia (derecha) -->
@@ -36,7 +40,9 @@
                 <a href="mailto:nachograssano10@gmail.com">nachograssano10@gmail.com</a>
                 <a href="https://behance.net/nachograssano" target="_blank" rel="noopener">behance.net/nachograssano</a>
             </div>
-            <p class="about-personal">
+            <p class="about-personal"
+               data-es="21 años<br> Buenos Aires, Argentina<br> Diseñador Gráfico Multidisciplinario"
+               data-en="21 years old<br> Buenos Aires, Argentina<br> Multidisciplinary Graphic Designer">
                 21 años<br>
                 Buenos Aires, Argentina<br>
                 Diseñador Gráfico Multidisciplinario
@@ -46,23 +52,23 @@
         <div class="about-experience">
             <div class="exp-item">
                 <span class="exp-company">Bárcilo</span>
-                <div class="exp-row"><span>Diseñador Gráfico</span><span class="exp-date">(2025-Presente)</span></div>
+                <div class="exp-row"><span data-es="Diseñador Gráfico" data-en="Graphic Designer">Diseñador Gráfico</span><span class="exp-date" data-es="(2025-Presente)" data-en="(2025-Present)">(2025-Presente)</span></div>
             </div>
             <div class="exp-item">
                 <span class="exp-company">Agencia Camaleón</span>
-                <div class="exp-row"><span>Diseñador Gráfico</span><span class="exp-date">(2024-Presente)</span></div>
+                <div class="exp-row"><span data-es="Diseñador Gráfico" data-en="Graphic Designer">Diseñador Gráfico</span><span class="exp-date" data-es="(2024-Presente)" data-en="(2024-Present)">(2024-Presente)</span></div>
             </div>
             <div class="exp-item">
                 <span class="exp-company">Oxen Latam</span>
-                <div class="exp-row"><span>Diseñador Gráfico</span><span class="exp-date">(2023-2024)</span></div>
+                <div class="exp-row"><span data-es="Diseñador Gráfico" data-en="Graphic Designer">Diseñador Gráfico</span><span class="exp-date">(2023-2024)</span></div>
             </div>
             <div class="exp-item">
                 <span class="exp-company">Reign Of Titans <span class="exp-light">by Pepsi</span></span>
-                <div class="exp-row"><span>Diseñador Gráfico</span><span class="exp-date">(2023-2024)</span></div>
+                <div class="exp-row"><span data-es="Diseñador Gráfico" data-en="Graphic Designer">Diseñador Gráfico</span><span class="exp-date">(2023-2024)</span></div>
             </div>
             <div class="exp-item">
                 <span class="exp-company">Ultimate Cup <span class="exp-light">by BurgerKing</span></span>
-                <div class="exp-row"><span>Diseñador Gráfico</span><span class="exp-date">(2023-2024)</span></div>
+                <div class="exp-row"><span data-es="Diseñador Gráfico" data-en="Graphic Designer">Diseñador Gráfico</span><span class="exp-date">(2023-2024)</span></div>
             </div>
         </div>
     </section>
@@ -87,6 +93,7 @@
         });
     }
 </script>
+<script src="../js/i18n.js?v=1"></script>
 
 </body>
 </html>
