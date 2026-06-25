@@ -185,13 +185,5 @@
     }, { passive: false });
     window.addEventListener('touchend', function () { touchY = null; }, { passive: true });
 
-    // Si el usuario deja de scrollear, la barra se descarga de a poco.
-    function decayLoop() {
-        if (!navigating && charge > 0 && (performance.now() - lastInputTime) > 160) {
-            charge = Math.max(0, charge - 14);
-            updateHint();
-        }
-        requestAnimationFrame(decayLoop);
-    }
     requestAnimationFrame(decayLoop);
 }());
