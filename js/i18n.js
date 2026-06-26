@@ -23,7 +23,8 @@
         '<rect width="24" height="16" fill="#fff"/>' +
         '<rect width="24" height="5.33" fill="#74ACDF"/>' +
         '<rect width="24" height="5.33" y="10.67" fill="#74ACDF"/>' +
-        '<circle cx="12" cy="8" r="1.7" fill="#F6B40E"/>' +
+        '<circle cx="12" cy="8" r="2.5" fill="none" stroke="#F6B40E" stroke-width="1.1" stroke-dasharray="0.5 0.8"/>' +
+        '<circle cx="12" cy="8" r="1.5" fill="#F6B40E"/>' +
         '</svg>';
 
     var FLAG_US =
@@ -45,15 +46,14 @@
         '</svg>';
 
     var CSS =
-        '.lang-switch{position:fixed;top:1.6rem;right:1.6rem;z-index:9001;display:flex;gap:.4rem;' +
-        'background:rgba(255,255,255,.9);padding:.35rem;border-radius:999px;' +
-        'box-shadow:0 4px 16px rgba(0,0,0,.18);backdrop-filter:blur(4px);}' +
-        '.lang-switch button{display:flex;align-items:center;justify-content:center;width:30px;height:22px;' +
-        'padding:0;border:none;background:none;cursor:pointer;border-radius:5px;overflow:hidden;' +
-        'opacity:.4;transition:opacity .2s ease,transform .2s ease;}' +
-        '.lang-switch button svg{width:100%;height:100%;display:block;border-radius:4px;}' +
-        '.lang-switch button:hover{opacity:.8;}' +
-        '.lang-switch button.active{opacity:1;outline:2px solid rgba(0,0,0,.55);outline-offset:1px;}' +
+        '.lang-switch{position:fixed;top:1.6rem;right:1.6rem;z-index:9001;display:flex;gap:.35rem;' +
+        'background:#0d0d0d;padding:.35rem;border-radius:11px;box-shadow:0 5px 18px rgba(0,0,0,.4);}' +
+        '.lang-switch button{display:block;width:32px;height:22px;padding:0;border:none;background:none;cursor:pointer;' +
+        'border-radius:5px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.12);' +
+        'filter:brightness(.4);transition:filter .25s ease,transform .2s ease;}' +
+        '.lang-switch button svg{width:100%;height:100%;display:block;}' +
+        '.lang-switch button:hover{filter:brightness(.7);}' +
+        '.lang-switch button.active{filter:none;}' +
         '@media (max-width:820px){.lang-switch{top:1.4rem;left:1.1rem;right:auto;}}' +
         '@media (prefers-reduced-motion:reduce){.lang-switch button{transition:none;}}';
 

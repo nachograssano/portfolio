@@ -47,7 +47,6 @@ body {
             text-align: left;
             pointer-events: none;
             transform: translateZ(0) translateX(-50%) translateY(-50%) rotateZ(-15deg);
-            filter: blur(0.76px);
             animation: textCounterWobble 60s linear infinite;
         }
 
@@ -195,6 +194,33 @@ body {
         .nav-links {
             display: flex;
             gap: 2rem;
+        }
+
+        /* Logos sociales (arriba a la izquierda, a la altura del navbar) */
+        .social-links {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 9000;
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #111;
+            transition: opacity 0.25s ease;
+        }
+
+        .social-links a:hover { opacity: 0.5; }
+
+        .social-links svg {
+            width: 20px;
+            height: 20px;
+            display: block;
         }
 
         /* Botón hamburguesa (oculto en desktop, visible en mobile) */
@@ -363,5 +389,17 @@ body {
             .logo-strip {
                 width: 72%;
                 bottom: 1.2rem;
+            }
+
+            /* En mobile las banderas van arriba-izquierda: bajamos los logos para no solaparlos */
+            .social-links {
+                top: 4rem;
+                left: 1.1rem;
+                gap: 1rem;
+            }
+
+            .social-links svg {
+                width: 22px;
+                height: 22px;
             }
         }
